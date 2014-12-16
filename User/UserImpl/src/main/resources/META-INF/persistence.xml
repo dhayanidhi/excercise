@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="USER-PU" transaction-type="JTA">
+        <jta-data-source>jdbc/training</jta-data-source>
+        <class>com.training.user.model.entity.CustomerAttributePE</class>
+        <class>com.training.user.model.entity.AbstractPE</class>
+        <class>com.training.user.model.entity.CustomerPE</class>
+        <class>com.training.user.model.entity.CustomTagPE</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="connection.autocommit" value="false"/>
+            <property name="eclipselink.ddl-generation" value="none"/>
+            <property name="eclipselink.logging.logger" value="JavaLogger"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
