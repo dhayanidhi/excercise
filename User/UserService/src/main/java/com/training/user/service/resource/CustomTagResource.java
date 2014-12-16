@@ -33,7 +33,7 @@ public class CustomTagResource extends AbstractResource {
     public Response createCustomTag(CustomTag customTag){
         CustomTagHelper customTagHelper = HelperFactory.getCustomTagHelper(uriInfo);
         String customTagId = userAccess.createCustomTag(customTagHelper.CONVERTER.getCustomTag(customTag));
-        return getOkResponse(customTagHelper.CONVERTER.getCustomTag(customTagId));
+        return getCreatedResponse(customTagHelper.CONVERTER.getCustomTag(customTagId));
     }
 
     @GET
@@ -57,7 +57,7 @@ public class CustomTagResource extends AbstractResource {
     public Response deleteCustomTag(@PathParam(value = "customTagId") String id){
         CustomTagHelper customTagHelper = HelperFactory.getCustomTagHelper(uriInfo).validateId(id);
         userAccess.deleteCustomTag(id);
-        return getOkResponse(customTagHelper.CONVERTER.getCustomTag(id));
+        return getOkResponse(null);
     }
 
 }

@@ -60,7 +60,7 @@ public class CustomerResource extends AbstractResource {
     public Response createCustomer(Customer customer){
         CustomerHelper customerHelper = HelperFactory.getCustomerHelper(uriInfo).validateCustomer(customer);
         String customerId = userAccess.createCustomer(customerHelper.CONVERTER.getCustomer(customer));
-        return getOkResponse(customerHelper.CONVERTER.getCustomer(customerId));
+        return getCreatedResponse(customerHelper.CONVERTER.getCustomer(customerId));
     }
 
     @POST
@@ -70,7 +70,7 @@ public class CustomerResource extends AbstractResource {
                                             CustomerProperty customerProperty){
         CustomerHelper customerHelper = HelperFactory.getCustomerHelper(uriInfo).validateId(customerId, customTagId, customerProperty.getValue());
         String attrId = userAccess.createCustomerAttribute(customerId, customTagId, customerProperty.getValue());
-        return getOkResponse(customerHelper.CONVERTER.getCustomerAttribute(customerId,
+        return getCreatedResponse(customerHelper.CONVERTER.getCustomerAttribute(customerId,
                 customTagId, attrId));
     }
 

@@ -1,0 +1,13 @@
+Introduction:
+Application is executed in glassfish, below provided steps are done for glassfish.
+
+1. As a Pre-requiste, need java 6.x or more, glassfish 3.x, maven 3.x
+2. Build module from User parent pom.xml. 
+3. ear package will be available in user build module , cd UserBuild/target/user.build.ear
+4. DB setup,
+	4.1. Setup ddl for the entities in any DB, UserImpl/src/main/resources/scripts/1__PreSetup.sql
+	4.2 Prefill some values in existing table, UserImpl/src/main/resources/scripts/2__PreFillValue.sql
+5. Start glassfish
+5. Setup db connection pool in glassfish  with jdbc datasource, "jdbc/training"
+6. Deploy user.build.ear in glassfish.
+7. Done.

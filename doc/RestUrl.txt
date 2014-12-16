@@ -1,0 +1,303 @@
+1. Create Customer:
+
+POST /user/customers HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{ "firstName":"dhaya", "lastName":"dakshin1", "age":18 } 
+
+Response:
+201 CREATED
+{
+    "id": "1016",
+    "type": "Customer",
+    "href": "http://localhost:8080/user/customers/1016"
+}
+
+####################################################################################################
+
+2. Update Customer:
+PUT /user/customers/1016 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{ "sex":"Male", "active":"true" } 
+
+Response:
+200 OK
+{
+    "id": "1016",
+    "type": "Customer",
+    "href": "http://localhost:8080/user/customers/1016"
+}
+
+############################################################################################################
+
+3. Delete customer:
+DELETE /user/customers/1017 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+Response:
+200 OK
+
+###########################################################################################################
+
+4. Create Custom Tag:
+POST /user/customtags HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{ "name":"phonenumber", "allowedEntry":1 } 
+
+Response:
+201 CREATED
+{
+    "id": "1018",
+    "type": "CustomTag",
+    "href": "http://localhost:8080/user/customtags/1018"
+}
+
+#############################################################################################################
+
+5. Update custom tag:
+PUT /user/customtags/1018 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{ "allowedEntry":4 } 
+
+Response:
+200 OK
+{
+    "id": "1018",
+    "type": "CustomTag",
+    "href": "http://localhost:8080/user/customtags/1018"
+}
+
+############################################################################################################
+
+6. Delete custom tag
+DELETE /user/customtags/1019 HTTP/1.1
+Host: localhost:8080
+
+Reason:
+200 OK
+
+############################################################################################################
+
+7. Get all CustomTag
+GET /user/customtags HTTP/1.1
+Host: localhost:8080
+
+Reason:
+200 OK
+[
+    {
+        "id": "1004",
+        "type": "CustomTag",
+        "href": "http://localhost:8080/user/customtags/1004",
+        "name": "Nationality"
+    },
+    {
+        "id": "1006",
+        "type": "CustomTag",
+        "href": "http://localhost:8080/user/customtags/1006",
+        "name": "PhoneNumber"
+    },
+    {
+        "id": "1014",
+        "type": "CustomTag",
+        "href": "http://localhost:8080/user/customtags/1014",
+        "name": "EmailAddress"
+    },
+    {
+        "id": "1018",
+        "type": "CustomTag",
+        "href": "http://localhost:8080/user/customtags/1018",
+        "name": "phonenumber",
+        "allowedEntry": 4
+    }
+]
+
+#############################################################################################################
+
+8. Get all Customer using filter
+Queryparam = {firstname, lastname, age-min, sex, age-max}
+pagination = {limit, page}
+Sort = {sort-asc, sort-desc}
+
+8.1. pagination:
+http://localhost:8080/user/customers/filter?limit=2&page=1
+Host: localhost:8080
+
+Reason:
+200 OK
+
+{
+    "nextHref": "http://localhost:8080/user/customers/filter?limit=2&page=2",
+    "selfHref": "http://localhost:8080/user/customers/filter?limit=2&page=1",
+    "customers": [
+        {
+            "id": "1016",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1016",
+            "firstName": "joe",
+            "lastName": "tom",
+            "sex": "Male"
+        },
+        {
+            "id": "1013",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1013",
+            "firstName": "dhaya",
+            "lastName": "dakshin1"
+        }
+    ]
+}
+
+Note:
+Page redirect link is part of response.
+
+8.2. Filter by query param
+
+GET /user/customers/filter?limit=1&page=2&age-max=34&age-min=18&sort-desc=age&skip=1&sort-asc=id HTTP/1.1
+Host: localhost:8080
+
+Response:
+200 OK
+
+{
+    "previousHref": "http://localhost:8080/user/customers/filter?limit=1&page=1&age-max=34&age-min=18&sort-desc=age&skip=1&sort-asc=id",
+    "nextHref": "http://localhost:8080/user/customers/filter?limit=1&page=3&age-max=34&age-min=18&sort-desc=age&skip=1&sort-asc=id",
+    "selfHref": "http://localhost:8080/user/customers/filter?limit=1&page=2&age-max=34&age-min=18&sort-desc=age&skip=1&sort-asc=id",
+    "customers": [
+        {
+            "id": "1003",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1003",
+            "firstName": "James",
+            "lastName": "Norah",
+            "sex": "Female"
+        }
+    ]
+}
+
+
+8.3. Get customers by Sort
+
+GET /user/customers/filter?age-min=18&age-max=34&sort-asc=id HTTP/1.1
+Host: localhost:8080
+
+Response:
+200 OK
+
+{
+    "customers": [
+        {
+            "id": "1000",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1000",
+            "firstName": "Dhaya",
+            "lastName": "Dakshina",
+            "sex": "Male"
+        },
+        {
+            "id": "1003",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1003",
+            "firstName": "James",
+            "lastName": "Norah",
+            "sex": "Female"
+        },
+        {
+            "id": "1013",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1013",
+            "firstName": "dhaya",
+            "lastName": "dakshin1"
+        },
+        {
+            "id": "1016",
+            "type": "Customer",
+            "href": "http://localhost:8080/user/customers/1016",
+            "firstName": "joe",
+            "lastName": "tom",
+            "sex": "Male"
+        }
+    ]
+}
+
+############################################################################################################
+
+9. Create custom attribute:
+   POST /user/customers/1000/customtags/1014 HTTP/1.1
+   Host: localhost:8080
+   Content-Type: application/json
+
+   {"value":"dd@dd.com"}
+
+   Response:
+   201 CREATED
+
+   {
+    "id": "1020",
+    "type": "CustomerAttr",
+    "href": "http://localhost:8080/user/customers/1000/customtags/1014/attribute/1020"
+   }
+
+############################################################################################################
+
+10. Update custom property of customer:
+
+   PUT /user/customers/1000/customtags/1014/attribute/1020 HTTP/1.1
+   Host: localhost:8080
+   Content-Type: application/json
+
+   {"value":"dd1@dd.com"}
+
+   Response:
+   200 OK
+
+   {
+    "id": "1020",
+    "type": "CustomerAttr",
+    "href": "http://localhost:8080/user/customers/1000/customtags/1014/attribute/1020"
+   }
+
+#############################################################################################################
+
+11. Get customer by id
+    GET /user/customers/1016 HTTP/1.1
+    Host: localhost:8080
+    
+    Response:
+    200 OK
+    {
+    "id": "1016",
+    "type": "Customer",
+    "href": "http://localhost:8080/user/customers/1016",
+    "firstName": "joe",
+    "lastName": "tom",
+    "sex": "Male",
+    "age": 18,
+    "active": true,
+    "customerPropertyList": [
+        {
+            "id": "1021",
+            "type": "CustomerAttr",
+            "href": "http://localhost:8080/user/customers/1016/customtags/1014/attribute/1021",
+            "name": "EmailAddress",
+            "value": "joe@dd.com"
+        }
+    ]
+ }  
+
+############################################################################################################
+
+12. Delete customer custom attribute:
+    DELETE /user/customers/1016/customtags/1014/attribute/1021 HTTP/1.1
+    Host: localhost:8080
+
+    Response:
+    200 OK

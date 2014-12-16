@@ -20,4 +20,9 @@ public class AbstractResource {
         Response.ResponseBuilder builder = Response.status(Response.Status.OK);
         return builder.entity(body).type(MediaType.APPLICATION_JSON).build();
     }
+
+    protected Response getCreatedResponse(Object body) {
+        Response.ResponseBuilder builder = Response.status(Response.Status.CREATED);
+        return builder.entity(body).type(MediaType.APPLICATION_JSON).build();
+    }
 }
