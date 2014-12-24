@@ -9,6 +9,7 @@ import com.training.user.model.entity.CustomerAttributePE;
 import com.training.user.model.entity.CustomerPE;
 import com.training.user.service.CustomerAccessFilter;
 import com.training.user.service.IUserAccess;
+import com.training.user.service.UserServiceException;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -74,6 +75,9 @@ public class UserAccessImpl implements IUserAccess {
         customerAttributePE.setId(userDAO.getSeq());
         customerAttributePE.setValue(value);
         customerAttributePE.setCreationTime(Calendar.getInstance());
+        if(!ValidationUtil.validateCreate(AttributeWrapper.init().verify(customerAttributePE)))
+            throw new UserServiceException("Custom attribute create operation failed " +
+                    "to match custom tag restriction");
         customerPE.getCustomAttribute().add(customerAttributePE);
         return Long.toString(customerAttributePE.getId());
     }
@@ -104,6 +108,9 @@ public class UserAccessImpl implements IUserAccess {
         if(customerAttributeDTO.getValue() != null) {
             customerAttributePE.setValue(customerAttributeDTO.getValue());
             customerAttributePE.setModifiedTime(Calendar.getInstance());
+            if(!ValidationUtil.validateUpdate(AttributeWrapper.init().verify(customerAttributePE)))
+                throw new UserServiceException("Custom attribute update operation failed " +
+                        "to match custom tag restriction");
         }
         userDAO.updateCustomerAttribute(customerAttributePE);
     }

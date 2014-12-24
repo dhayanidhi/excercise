@@ -38,7 +38,7 @@ CREATE TABLE rs_customer_attribute(
      c_id bigint NOT NULL,
      fk_customer bigint NOT NULL,
      fk_custom_tag bigint NOT NULL,
-     c_value character varying(36),
+     c_value character varying(36) NOT NULL,
      c_creation_time timestamp,
      c_modified_time timestamp,
      c_version INT NOT NULL DEFAULT 1,

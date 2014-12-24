@@ -25,6 +25,7 @@ public class CustomTagPE extends AbstractPE implements ICustomTag {
 
     @Column(name = "c_attribute_type")
     @Enumerated(EnumType.STRING)
+    @Deprecated
     private AllowedAttributeType allowedAttributeType;
 
     @Column(name = "c_validation_value")

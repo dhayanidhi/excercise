@@ -10,6 +10,29 @@
     <packaging>war</packaging>
     <name>user.service Maven Webapp</name>
     <url>http://maven.apache.org</url>
+<!--    <properties>
+        <arquillian.version>1.1.5.Final</arquillian.version>
+        <arquillan.glassfish.embedded.version>1.0.0.CR4</arquillan.glassfish.embedded.version>
+        <arquillian_persistence.version>1.0.0.Alpha7</arquillian_persistence.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+        <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-bom</artifactId>
+            <version>${arquillian.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-bom</artifactId>
+            <version>1.0.1.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>-->
     <dependencies>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -33,6 +56,12 @@
             <groupId>com.training</groupId>
             <artifactId>user.api</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.training</groupId>
+            <artifactId>user.impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
@@ -70,6 +99,41 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+<!--        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.8</version>
+        </dependency>-->
+        <!--ARQUILLIAN-->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.17</version>
+            <scope>test</scope>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.jboss.arquillian.testng</groupId>
+            <artifactId>arquillian-suite-extension</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eu.ingwar.tools</groupId>
+            <artifactId>arquillian-suite-extension</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+       <!-- <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-api</artifactId>
+            <version>${arquillian_persistence.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-dbunit</artifactId>
+            <version>${arquillian_persistence.version}</version>
+            <scope>test</scope>
+        </dependency>-->
     </dependencies>
     <build>
         <finalName>user.service</finalName>
